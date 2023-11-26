@@ -1,42 +1,42 @@
-const socket = io()
-let userName = prompt('Input your name to join room chat')
-const messageContainer = document.getElementById('message-container')
-const messageForm = document.getElementById('message-form')
-const messageInput = document.getElementById('message-input')
-const clientsTotal = document.getElementById('client-total')
+const socket = io();
+// let userName = prompt('Input your name to join room chat')
+const messageContainer = document.getElementById('message-container');
+const messageForm = document.getElementById('message-form');
+const messageInput = document.getElementById('message-input');
+const clientsTotal = document.getElementById('client-total');
 
-const messageTone = new Audio('/message-tone.mp3')
+const messageTone = new Audio('/message-tone.mp3');
 
-if (!userName.trim()) userName = prompt('Please input your name')
+// if (!userName.trim()) userName = prompt('Please input your name')
 
-messageForm.addEventListener('submit', (e) => {
-  e.preventDefault()
-  sendMessage()
-})
+messageForm.addEventListener('submit', e => {
+  e.preventDefault();
+  sendMessage();
+});
 
-socket.on('clients-total', (data) => {
-  clientsTotal.innerText = `Total Clients: ${data}`
-})
+socket.on('clients-total', data => {
+  clientsTotal.innerText = `Total Clients: ${data}`;
+});
 
 function sendMessage() {
-  if (messageInput.value === '') return
+  if (messageInput.value === '') return;
   const data = {
-    name: userName,
+    // name: userName,
     message: messageInput.value,
     dateTime: new Date(),
-  }
-  socket.emit('message', data)
-  addMessageToUI(true, data)
-  messageInput.value = ''
+  };
+  socket.emit('send-message', data);
+  addMessageToUI(true, data);
+  messageInput.value = '';
 }
 
-socket.on('chat-message', (data) => {
+socket.on('new-message', data => {
   messageTone.play()
-  addMessageToUI(false, data)
-})
+  addMessageToUI(false, data);
+});
 
 function addMessageToUI(isOwnMessage, data) {
-  clearFeedback()
+  clearTypingStatus();
   const element = `
       <li class="${isOwnMessage ? 'message-right' : 'message-left'}">
           <p class="message">
@@ -44,45 +44,44 @@ function addMessageToUI(isOwnMessage, data) {
             <span>${data.name} ● ${moment(data.dateTime).fromNow()}</span>
           </p>
         </li>
-        `
+        `;
 
-  messageContainer.innerHTML += element
-  scrollToBottom()
+  messageContainer.insertAdjacentHTML('beforeend', element);
+  scrollToBottom();
 }
 
 function scrollToBottom() {
-  messageContainer.scrollTo(0, messageContainer.scrollHeight)
+  messageContainer.scrollTo(0, messageContainer.scrollHeight);
 }
 
-messageInput.addEventListener('focus', (e) => {
-  socket.emit('feedback', {
-    feedback: `✍️ ${userName} is typing a message`,
-  })
-})
+messageInput.addEventListener('focus', e => {
+  socket.emit('typing', {
+    text: `✍️  is typing a message`,
+  });
+});
 
-messageInput.addEventListener('keypress', (e) => {
-  socket.emit('feedback', {
-    feedback: `✍️ ${userName} is typing a message`,
-  })
-})
-messageInput.addEventListener('blur', (e) => {
-  socket.emit('feedback', {
-    feedback: '',
-  })
-})
+messageInput.addEventListener('keypress', e => {
+  socket.emit('typing', {
+    text: `✍️  is typing a message`,
+  });
+});
+messageInput.addEventListener('blur', e => {
+  socket.emit('typing', {
+    text: '',
+  });
+});
 
-socket.on('feedback', (data) => {
-  clearFeedback()
+socket.on('typing', data => {
+  clearTypingStatus();
   const element = `
-        <li class="message-feedback">
-          <p class="feedback" id="feedback">${data.feedback}</p>
+        <li id="typing-status">
+          <p class="typing-text" id="typing-text">${data.text}</p>
         </li>
-  `
-  messageContainer.innerHTML += element
-})
+  `;
+  messageContainer.insertAdjacentHTML('beforeend', element);
+});
 
-function clearFeedback() {
-  document.querySelectorAll('li.message-feedback').forEach((element) => {
-    element.parentNode.removeChild(element)
-  })
+function clearTypingStatus() {
+  const statusEl = document.getElementById('typing-status');
+  if (statusEl) statusEl.remove();
 }
