@@ -13,55 +13,11 @@
     <title>Chat app</title>
   </head>
   <body>
-    <h1 class="title">pMessage <i class="fab fa-facebook-messenger"></i></h1>
-    <div class="main">
-      <div class="room-title">
-        <span class="room-icon"><i class="far fa-comments"></i></span>
-        <span class="room-name">Room 01</span>
-      </div>
+    <form id="joining-form" action="/chat.html">
+      <label for="username">Enter your name to join chat room</label>
+      <input type="text" name="username" id="username" required placeholder="Your name">
+      <button id="join-btn" type="submit">JOIN</button>
+    </form>
 
-      <ul class="message-container" id="message-container">
-        <!-- These li elements are only for reference, and therefore, they are commented out... -->
-        <!-- <li class="message-left">
-          <p class="message">
-            lorem impsun
-            <span>bluebird ● 26 July 10:40</span>
-          </p>
-        </li>
-
-        <li class="message-right">
-          <p class="message">
-            lorem impsun
-            <span>bluebird ● 26 July 10:40</span>
-          </p>
-        </li>
-
-        <li class="message-feedback">
-          <p class="feedback" id="feedback"><i class="far fa-comment-dots"></i></i> killer is typing a message...</p>
-        </li> -->
-      </ul>
-
-      <form class="message-form" id="message-form">
-        <input
-          type="text"
-          name="message"
-          id="message-input"
-          class="message-input"
-        />
-        <button type="submit" class="send-button">
-        <span><i class="fas fa-paper-plane"></i></span>
-        </button>
-      </form>
-    </div>
-    <h3 class="clients-total" id="client-total">Total clients: 2</h3>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"
-      integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg=="
-      crossorigin="anonymous"
-    ></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" integrity="sha512-CryKbMe7sjSCDPl18jtJI5DR5jtkUWxPXWaLCst6QjH8wxDexfRJic2WRmRXmstr2Y8SxDDWuBO6CQC6IE4KTA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-    <script src="main.js"></script>
   </body>
 </html>

@@ -1,13 +1,13 @@
 const socket = io();
-// let userName = prompt('Input your name to join room chat')
+
+const queryParams = new URLSearchParams(window.location.search);
+const username = queryParams.get('username');
 const messageContainer = document.getElementById('message-container');
 const messageForm = document.getElementById('message-form');
 const messageInput = document.getElementById('message-input');
 const clientsTotal = document.getElementById('client-total');
 
 const messageTone = new Audio('/message-tone.mp3');
-
-// if (!userName.trim()) userName = prompt('Please input your name')
 
 messageForm.addEventListener('submit', e => {
   e.preventDefault();
@@ -21,7 +21,7 @@ socket.on('clients-total', data => {
 function sendMessage() {
   if (messageInput.value === '') return;
   const data = {
-    // name: userName,
+    name: username,
     message: messageInput.value,
     dateTime: new Date(),
   };
@@ -31,7 +31,7 @@ function sendMessage() {
 }
 
 socket.on('new-message', data => {
-  messageTone.play()
+  messageTone.play();
   addMessageToUI(false, data);
 });
 
@@ -41,7 +41,7 @@ function addMessageToUI(isOwnMessage, data) {
       <li class="${isOwnMessage ? 'message-right' : 'message-left'}">
           <p class="message">
             ${data.message}
-            <span>${data.name} ● ${moment(data.dateTime).fromNow()}</span>
+            <span>${data.name} ● ${moment(data.dateTime).format('h:mm a')}</span>
           </p>
         </li>
         `;
@@ -54,15 +54,10 @@ function scrollToBottom() {
   messageContainer.scrollTo(0, messageContainer.scrollHeight);
 }
 
-messageInput.addEventListener('focus', e => {
-  socket.emit('typing', {
-    text: `✍️  is typing a message`,
-  });
-});
 
 messageInput.addEventListener('keypress', e => {
   socket.emit('typing', {
-    text: `✍️  is typing a message`,
+    text: `${username} is typing a message <i class="far fa-comment-dots"></i>`,
   });
 });
 messageInput.addEventListener('blur', e => {
