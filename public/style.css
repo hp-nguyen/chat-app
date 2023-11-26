@@ -90,7 +90,7 @@ body {
   margin-top: 4px;
 }
 
-.typing-text {
+#typing-text {
   font-style: italic;
   font-size: 14px;
   padding: 0px 16px 16px 16px;
@@ -98,14 +98,14 @@ body {
   text-align: center;
 }
 
-.message-form {
+#message-form {
   display: flex;
   justify-content: space-between;
   width: 100%;
   margin-bottom: 4px;
 }
 
-.message-input {
+#message-input {
   flex-grow: 1;
   border: none;
   outline: none;
@@ -128,7 +128,7 @@ body {
   font-size: 20px;
 }
 
-.clients-total {
+#clients-total {
   margin: 20px 0;
   color: #fff;
 }
@@ -146,16 +146,16 @@ body {
   background-color: #343a40;
 }
 #username {
-  padding: 4px 12px;
   font: inherit;
   font-size: 20px;
+  padding: 4px 12px;
   outline: none;
   border: none;
   border-radius: 6px;
 }
 #join-btn {
-  padding: 0.5em 1em;
   width: max-content;
+  padding: 0.5em 1em;
   align-self: center;
   font-weight: bold;
   font-size: 20px;

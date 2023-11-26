@@ -41,7 +41,7 @@ function addMessageToUI(isOwnMessage, data) {
       <li class="${isOwnMessage ? 'message-right' : 'message-left'}">
           <p class="message">
             ${data.message}
-            <span>${data.name} ● ${moment(data.dateTime).format('h:mm a')}</span>
+            <span>${data.name} ● ${moment(data.dateTime).format('DD MMM h:mm a')}</span>
           </p>
         </li>
         `;
@@ -70,7 +70,7 @@ socket.on('typing', data => {
   clearTypingStatus();
   const element = `
         <li id="typing-status">
-          <p class="typing-text" id="typing-text">${data.text}</p>
+          <p id="typing-text">${data.text}</p>
         </li>
   `;
   messageContainer.insertAdjacentHTML('beforeend', element);

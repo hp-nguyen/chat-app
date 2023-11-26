@@ -7,8 +7,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
       integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
-      crossorigin="anonymous"
-    />
+      crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css" />
     <title>Chat app</title>
   </head>
@@ -20,29 +19,22 @@
         <span class="room-name">Room 01</span>
       </div>
 
-      <ul id="message-container">
-      </ul>
+      <ul id="message-container"></ul>
 
-      <form class="message-form" id="message-form">
-        <input
-          type="text"
-          name="message"
-          id="message-input"
-          class="message-input"
-        />
+      <form id="message-form">
+        <input type="text" name="message" id="message-input" />
         <button type="submit" class="send-button">
-        <span><i class="fas fa-paper-plane"></i></span>
+          <span><i class="fas fa-paper-plane"></i></span>
         </button>
       </form>
     </div>
-    <h3 class="clients-total" id="client-total">Total clients: ...</h3>
+    <h3 id="client-total">Total clients: ...</h3>
 
     <script src="/socket.io/socket.io.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"
       integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg=="
-      crossorigin="anonymous"
-    ></script>
+      crossorigin="anonymous"></script>
     <script src="main.js"></script>
   </body>
 </html>
